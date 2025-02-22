@@ -32,10 +32,53 @@
 # people1 = pessoa.mostrarPopulacao()
 
 
-class somar:
-    @staticmethod
-    def somar(a:int, b:int):
-        result:int = a + b
-        print(result)
+# class somar:
+#     @staticmethod
+#     def somar(a:int, b:int):
+#         result:int = a + b
+#         print(result)
         
-calcular = somar.somar(5,10)
+# calcular = somar.somar(5,10)
+
+
+class Conta_bancaria:
+    saldo_conta:int
+    def __init__(self):
+        taxa_juros = 0
+        total_contas += 1
+
+    @classmethod
+    def depositar(cls, valor:int):
+        if(cls.saldo_conta >= 0):
+            cls.saldo_conta += valor
+            print("Valor depositado com sucesso")
+        else:
+            print("O valor não pode ser depositado com sucesso")
+
+    @classmethod
+    def sacar(cls):
+        pergunta = int(input("Qual valor a ser sacado? (valor minímo de 25R$)"))
+        if(pergunta):
+            if(pergunta >= 0 and pergunta >= 25):
+                Sacar(pergunta)
+            
+        def Sacar(dinheiro:int):
+            cls.saldo_conta -= dinheiro
+            if(cls.saldo_conta < 0):
+                cls.saldo_conta = dinheiro;
+                print("Saldo insuficiente")
+
+    def verificar_saldo(cls):
+        print(f"Seu saldo atual é de {cls.saldo_conta}")
+
+    def ajustar_taxa_juros(self, taxa:float):
+        if(taxa > 0):
+            self.taxa_juros = taxa
+        else:
+            print("Valor inválido, a taxa precisa ser positiva")
+
+    def mostrar_total_contas(self):
+        print(f"O total de contas é de {self.total_contas}")
+
+conta = Conta_bancaria()
+conta.depositar(100)
