@@ -42,10 +42,11 @@
 
 
 class Conta_bancaria:
-    saldo_conta:int
+    saldo_conta:int = 0
+    total_contas = 0
     def __init__(self):
-        taxa_juros = 0
-        total_contas += 1
+        self.taxa_juros = 0
+        Conta_bancaria.total_contas += 1
 
     @classmethod
     def depositar(cls, valor:int):
@@ -57,16 +58,22 @@ class Conta_bancaria:
 
     @classmethod
     def sacar(cls):
-        pergunta = int(input("Qual valor a ser sacado? (valor minímo de 25R$)"))
-        if(pergunta):
-            if(pergunta >= 0 and pergunta >= 25):
-                Sacar(pergunta)
-            
-        def Sacar(dinheiro:int):
+        def Saacar(dinheiro:int):
             cls.saldo_conta -= dinheiro
             if(cls.saldo_conta < 0):
                 cls.saldo_conta = dinheiro;
+                if(cls.saldo_conta < 0 ):
+                    cls.saldo_conta = 0
                 print("Saldo insuficiente")
+
+        pergunta = int(input("Qual valor a ser sacado? (valor minímo de 25R$)"))
+        if(pergunta):
+            if(pergunta < cls.saldo_conta):
+                if(pergunta >= 0 and pergunta >= 25):
+                    Saacar(pergunta)
+            else:
+                print("Valor inválido")
+            
 
     def verificar_saldo(cls):
         print(f"Seu saldo atual é de {cls.saldo_conta}")
@@ -82,3 +89,8 @@ class Conta_bancaria:
 
 conta = Conta_bancaria()
 conta.depositar(100)
+conta.verificar_saldo()
+conta.sacar()
+conta.verificar_saldo()
+conta.mostrar_total_contas()
+conta.ajustar_taxa_juros(0.5)
