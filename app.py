@@ -42,55 +42,71 @@
 
 
 class Conta_bancaria:
-    saldo_conta:int = 0
-    total_contas = 0
-    def __init__(self):
-        self.taxa_juros = 0
-        Conta_bancaria.total_contas += 1
+    taxa_juros = 0;
+    total_contas = 0;
 
-    @classmethod
-    def depositar(cls, valor:int):
-        if(cls.saldo_conta >= 0):
-            cls.saldo_conta += valor
+    def __init__(self, saldo_inicial:int, name:str):
+        Conta_bancaria.total_contas += 1;
+        self.saldo_conta:int = saldo_inicial;
+        self.titular = name;
+    
+    def depositar(self, valor:int):
+        if(self.saldo_conta >= 0):
+            self.saldo_conta += valor
             print("Valor depositado com sucesso")
         else:
             print("O valor não pode ser depositado com sucesso")
 
-    @classmethod
-    def sacar(cls):
+    
+    def sacar(self):
         def Saacar(dinheiro:int):
-            cls.saldo_conta -= dinheiro
-            if(cls.saldo_conta < 0):
-                cls.saldo_conta = dinheiro;
-                if(cls.saldo_conta < 0 ):
-                    cls.saldo_conta = 0
-                print("Saldo insuficiente")
-
-        pergunta = int(input("Qual valor a ser sacado? (valor minímo de 25R$)"))
-        if(pergunta):
-            if(pergunta < cls.saldo_conta):
-                if(pergunta >= 0 and pergunta >= 25):
-                    Saacar(pergunta)
+            if(dinheiro <= self.saldo_conta):
+                self.saldo_conta -= dinheiro
+                print(f"valor sacado é de {dinheiro}")
             else:
-                print("Valor inválido")
-            
+                print("Não foi possível sacar")
 
-    def verificar_saldo(cls):
-        print(f"Seu saldo atual é de {cls.saldo_conta}")
 
+        pergunta = int(input("Qual valor a ser sacado? (valor minímo de 25R$) \n"))
+        if(pergunta < self.saldo_conta):
+            if(pergunta >= 0 and pergunta >= 25):
+                Saacar(pergunta)
+        else:
+            print("Valor invalido")
+
+    def verificar_saldo(self):
+        print(f"Seu saldo atual é de {self.saldo_conta}")
+
+    @classmethod
     def ajustar_taxa_juros(self, taxa:float):
         if(taxa > 0):
             self.taxa_juros = taxa
+            print(f"Sua taxa de juros atual é de {cls.taxa_juros}")
         else:
             print("Valor inválido, a taxa precisa ser positiva")
 
-    def mostrar_total_contas(self):
-        print(f"O total de contas é de {self.total_contas}")
+    @classmethod
+    def mostrar_total_contas(cls):
+        print(f"O total de contas é de {Conta_bancaria.total_contas}")
 
-conta = Conta_bancaria()
-conta.depositar(100)
-conta.verificar_saldo()
-conta.sacar()
-conta.verificar_saldo()
-conta.mostrar_total_contas()
-conta.ajustar_taxa_juros(0.5)
+    @staticmethod
+    def converter_moeda(valor_normal:int, taxa_conversão:int):
+        v1 = valor_normal;
+        v2 = taxa_conversão;
+        valor_convertido = (v1 * v2 / 100) * v1
+        print(f"sua conversão deu: {valor_convertido}");
+
+    @staticmethod
+    def dias_no_ano():
+        print("um ano tem 365");
+
+
+conta = Conta_bancaria(5, "vitor");
+conta.depositar(100);
+conta.verificar_saldo();
+conta.sacar();
+conta.verificar_saldo();
+conta.mostrar_total_contas();
+conta2 = Conta_bancaria(0, "Jubileu");
+conta.mostrar_total_contas();
+conta.ajustar_taxa_juros(0.5);
